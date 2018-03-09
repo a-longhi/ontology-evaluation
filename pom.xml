@@ -2,12 +2,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ontology.evaluation</groupId>
-	<artifactId>ontology.metrics.oquare</artifactId>
+	<artifactId>oquare-metrics</artifactId>
 	<version>1.0.0</version>
 	<name>Ontology evaluation</name>
 	<description>The project implements ontology evaluation metrics that can be used for ontology evaluation frameworks. 
 An improved OQUARE ontology evaluation framework is implemented.</description>
-
+	<organization>
+		<name>UM FGPA KGPI / Andrej Tibaut</name>
+		<url>http://fgpa.um.si</url>
+	</organization>
+	
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
