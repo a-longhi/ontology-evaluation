@@ -2,12 +2,11 @@ Ontology evaluation project
 ===========================
 The project implements metrics for evaluation of ontologies. 
 
-# OQuaRE metrics
-The metrics support the [OQuaRE] [1] ([Wiki][2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
+# 1. OQuaRE metrics
+The metrics support the [OQuaRE][1] ([Wiki][2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
 
-OQuaRE metrics:
 
-## LCOMOnto (Lack of Cohesion in Methods)
+## 1.1. LCOMOnto (Lack of Cohesion in Methods)
 Semantic and conceptual relatedness of classes. It can be used to measure the separation of responsibilities and independence of components of ontologies.
 Formula: 
 
@@ -19,10 +18,14 @@ LCOMOnto=∑PathLength(CThing,LeafCi) / ∑PathLeafCj
 where PathLength is the function that calculates length between the i-th leaf concept LeafCi and the CThing (owl:Thing) and PathLeafCi is the j-th path between CThing and a leaf.
 
 
-##WMCOnto2 (Weigth method per class) 
+## WMCOnto2 (Weigth method per class) 
 Arithmetic mean number of path length (number of links between concepts) from Thing (owl:Thing) to a leaf class.
- 
-*Formula*: WMCOnto2=∑PathLength(CThing,LeafCi) / ∑LeafCi, 
+Formula: 
+
+```
+WMCOnto2=∑PathLength(CThing,LeafCi) / ∑LeafCi,
+```
+
 where PathLength is the function that calculates length between the i-th leaf concept LeafCi and the CThing (owl:Thing).
 
 3. DITOnto (Depth of subsumption hierarchy): 
@@ -74,6 +77,7 @@ Formula: TMOnto2=∑Ci∑AncCj / ∑Ci; where Ci is the i-th concept with more t
 
 References
 ----------
+
 [1]: A. Duque-Ramos, J.T. Fernández-Breis, R. Stevens, N. Aussenac-Gilles, OQuaRE: A square-based approach for evaluating the quality of ontologies, J. Res. Pract. Inf. Technol. 43 (2011) 159–176.
 
 [2]: OQUARE Wiki. http://miuras.inf.um.es/oquarewiki/. Accessed 15 Dec 2017
