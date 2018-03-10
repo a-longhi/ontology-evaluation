@@ -2,12 +2,12 @@ Ontology evaluation project
 ===========================
 The project implements metrics for evaluation of ontologies. 
 
-#OQuaRE metrics
+# OQuaRE metrics
 The metrics support the [OQuaRE] [1] ([Wiki][2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
 
 OQuaRE metrics:
 
-##LCOMOnto (Lack of Cohesion in Methods)
+## LCOMOnto (Lack of Cohesion in Methods)
 Semantic and conceptual relatedness of classes. It can be used to measure the separation of responsibilities and independence of components of ontologies.
 Formula: 
 
