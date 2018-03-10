@@ -177,7 +177,7 @@ where Ci is the i-th concept with more than one direct ancestor and AncCj is its
 
 
 The project contains Java code (see the folder `src/ontology/metrics`) and initial ontology data (see the ontology `cidoc_crm_v6.2-draft-2015August.rdf` in the folder `resources`) to start with.
-The project was created with the `Eclipse` and therefore can be downloaded (or pulled) and imported into Eclipse. The best way is to import it as a `Maven` project (the `pom.xml` is in the root of the project).  The class with the `Main` method is the `ontology.metrics.CalculateMetrics` to which the ontlogy `resources/cidoc_crm_v6.2-draft-2015August.rdf` can be passed as a command line argument (args).
+The project was created with the `Eclipse` and therefore can be downloaded (or pulled) and imported into Eclipse. The best way is to import it as a `Maven` project (the `pom.xml` is in the root of the project).  The class with the `Main` method is the `ontology.metrics.CalculateMetrics` to which the ontology `resources/cidoc_crm_v6.2-draft-2015August.rdf` can be passed as a command line argument (args).
 To run the project with the `Maven` use the following commands:
 * clean (to delete `target` folder etc.) and compile
 
