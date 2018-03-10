@@ -173,7 +173,7 @@ TMOnto2=∑Ci∑AncCj / ∑Ci
 where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
 
 
-# 2. Use of the project
+# 2. Usage
 
 
 The project contains Java code (see the folder `src/ontology/metrics`) and initial ontology data (see the ontology `cidoc_crm_v6.2-draft-2015August.rdf` in the folder `resources`) to start with.
