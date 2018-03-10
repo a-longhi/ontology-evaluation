@@ -87,7 +87,8 @@ where Ci is the i-th concept and ProCj is its j-th property and AncCk is its k-t
 
 
 
-## 1.7. NOMOnto (Number of properties): Arithmetic mean number of properties (owl:ObjectProperty, owl:DatatypeProperty) per concept. 
+## 1.7. NOMOnto (Number of properties) 
+Arithmetic mean number of properties (owl:ObjectProperty, owl:DatatypeProperty) per concept. 
 Formula: 
 
 ```
