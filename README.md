@@ -3,7 +3,7 @@ Ontology evaluation project
 The project implements metrics for evaluation of ontologies. 
 
 # 1. OQuaRE metrics
-The metrics support the [OQuaRE][1] (Wiki [2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
+The metrics support the OQuaRE [1] (Wiki [2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
 
 
 ## 1.1. LCOMOnto (Lack of Cohesion in Methods)
@@ -173,9 +173,28 @@ TMOnto2=∑Ci∑AncCj / ∑Ci
 where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
 
 
+# 2. Use of the project
+
+
+The project contains Java code (see the folder `src/ontology/metrics`) and initial ontology data (see the ontology `cidoc_crm_v6.2-draft-2015August.rdf` in the folder `resources`) to start with.
+The project was created with the `Eclipse` and therefore can be downloaded (or pulled) and imported into Eclipse. The best way is to import it as a `Maven` project (the `pom.xml` is in the root of the project).  The class with the `Main` method is the `ontology.metrics.CalculateMetrics` to which the ontlogy `resources/cidoc_crm_v6.2-draft-2015August.rdf` can be passed as a command line argument (args).
+To run the project with the `Maven` use the following commands:
+* clean (to delete `target` folder etc.) and compile
+
+```
+mvn clean compile    
+```
+* run it
+
+```
+mvn exec:java -Dexec.mainClass=ontology.metrics.CalculateMetrics -Dexec.args="resources/cidoc_crm_v6.2-draft-2015August.rdf"
+```
+
+
+
 References
 ----------
 
-[1]: A. Duque-Ramos, J.T. Fernández-Breis, R. Stevens, N. Aussenac-Gilles, OQuaRE: A square-based approach for evaluating the quality of ontologies, J. Res. Pract. Inf. Technol. 43 (2011) 159–176.
+[1] A. Duque-Ramos, J.T. Fernández-Breis, R. Stevens, N. Aussenac-Gilles, OQuaRE: A square-based approach for evaluating the quality of ontologies, J. Res. Pract. Inf. Technol. 43 (2011) 159–176.
 
-[2]: OQUARE Wiki. http://miuras.inf.um.es/oquarewiki/. Accessed 15 Dec 2017
+[2] OQUARE Wiki. http://miuras.inf.um.es/oquarewiki/. Accessed 15 Dec 2017
