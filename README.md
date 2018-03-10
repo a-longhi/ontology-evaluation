@@ -3,7 +3,7 @@ Ontology evaluation project
 The project implements metrics for evaluation of ontologies. 
 
 # 1. OQuaRE metrics
-The metrics support the [OQuaRE][1] ([Wiki][2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
+The metrics support the [OQuaRE][1] (Wiki [2]) ontology evaluation framework. Original definitions and formulas are improved and some of them corrected. This is the only known open source implementation of the evaluation framework.   
 
 
 ## 1.1. LCOMOnto (Lack of Cohesion in Methods)
@@ -23,7 +23,7 @@ Arithmetic mean number of path length (number of links between concepts) from Th
 Formula: 
 
 ```
-WMCOnto2=∑PathLength(CThing,LeafCi) / ∑LeafCi,
+WMCOnto2=∑PathLength(CThing,LeafCi) / ∑LeafCi
 ```
 
 where PathLength is the function that calculates length between the i-th leaf concept LeafCi and the CThing (owl:Thing).
@@ -33,7 +33,7 @@ Length (number of links between concepts) of the longest path from Thing (owl:Th
 Formula: 
 
 ```
-DITOnto=Max(PathLength(CThing,LeafCi)),
+DITOnto=Max(PathLength(CThing,LeafCi))
 ```
 
 where PathLength is the function that calculates length between the i-th leaf concept LeafCi and the CThing (owl:Thing). The maximum path length (Max) is then selected as result.
@@ -101,7 +101,7 @@ Number of subconcepts (rdfs:subClassOf) divided by the sum of subconcepts (rdfs:
 Formula: 
 
 ```
-RROnto=∑Ci∑SubCj  ∕ (∑Ci∑SubCj + ∑Ci∑ProCk); 
+RROnto=∑Ci∑SubCj  ∕ (∑Ci∑SubCj + ∑Ci∑ProCk) 
 ```
 
 where Ci is the i-th concept and SubCj is its j-th subconcept and ProCk is its k-th property.
@@ -124,7 +124,7 @@ Number of property restrictions (owl:Restrictions (owl:someValuesFrom, owl:allVa
 Formula: 
 
 ```
-AROnto=∑Ci∑RestCj / ∑Ci; 
+AROnto=∑Ci∑RestCj / ∑Ci
 ```
 
 where Ci is the i-th concept and RestCj is its j-th restriction.
@@ -134,7 +134,7 @@ Arithmetic mean number of subconcepts (rdfs:subClassOf) per concept.
 Formula: 
 
 ```
-INROnto=∑Ci∑SubCj  / ∑Ci;
+INROnto=∑Ci∑SubCj  / ∑Ci
 ```
 
 where Ci is the i-th concept and SubCj is its j-th subconcept.
@@ -146,7 +146,7 @@ Arithmetic mean number of direct individuals per concept (excluding individuals 
 Formula: 
 
 ```
-CROnto=∑Ci∑IndCj / ∑Cj; 
+CROnto=∑Ci∑IndCj / ∑Cj
 ```
 
 where Ci is the i-th concept and IndCi is its j-th individual.
