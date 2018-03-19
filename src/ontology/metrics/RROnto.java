@@ -14,11 +14,11 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
-import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.RDFS;
@@ -37,9 +37,11 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class RROnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public RROnto(OntModel ontologyModel) {
+		logger.info("*********************************************");
+		logger.info("RROnto - Relationship Richness");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -48,16 +50,20 @@ public class RROnto {
 		// get number of all subconcepts in the ontology
 		int nsc = getNumberOfSubconcepts(allConcepts);
 
-		// get number of all properties in the ontology
-		int np = getNumberOfProperties(allConcepts);
+		// get number of usage for object properties in the ontology
+		int nop = getNumberOfObjectProperties(ontologyModel);
 
-		double rronto = (double) nsc / (double) (nsc + np);
+		// get number of usage for data properties in the ontology
+		int ndp = getNumberOfDataProperties(ontologyModel);
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of all direct subconcepts: " + nsc);
-		System.out.println("Number of all properties: " + np);
-		System.out.println("RROnto: " + rronto);
-		System.out.println("*********************************************");
+		double rronto = (double) nsc / (double) (nsc + nop + ndp);
+
+		logger.info("Number of concepts: " + nc);
+		logger.info("Number of direct subconcepts: " + nsc);
+		logger.info("Number of object properties: " + nop);
+		logger.info("Number of data properties: " + ndp);
+		logger.info("RROnto: " + rronto);
+		logger.info("*********************************************");
 
 	}
 
@@ -94,25 +100,32 @@ public class RROnto {
 	}
 
 	/**
-	 * The method finds all direct properties for the given list of concepts
+	 * The method finds all object properties
 	 * 
-	 * @param iConcepts
-	 *            list of all ontology concepts
+	 * @param iOntologyModel
+	 *            ontology model
 	 * @return List of subconcepts
 	 * @author Andrej Tibaut
 	 */
-	public int getNumberOfProperties(final List<OntClass> iConcepts) {
-		int np = 0; // number of subconcepts
+	public int getNumberOfObjectProperties(final OntModel iOntologyModel) {
 
-		for (OntClass aConcept : iConcepts) {
-			ExtendedIterator<OntProperty> iter = aConcept.listDeclaredProperties(true);
-			if (iter.hasNext())
-				np += iter.toList().size();
-		}
-
-		return np;
+		return iOntologyModel.listObjectProperties().toList().size();
 	}
 
+	/**
+	 * The method finds all data properties
+	 * 
+	 * @param iOntologyModel
+	 *            ontology model
+	 * @return List of subconcepts
+	 * @author Andrej Tibaut
+	 */
+	public int getNumberOfDataProperties(final OntModel iOntologyModel) {
+
+		return iOntologyModel.listDatatypeProperties().toList().size();
+	}
+
+	@Deprecated
 	public static int getNumSubclasses(final Resource klass) {
 		return klass.getModel().listSubjectsWithProperty(RDFS.subClassOf, klass).toList().size();
 	}

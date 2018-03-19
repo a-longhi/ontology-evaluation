@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
@@ -32,9 +33,11 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class INROnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public INROnto(OntModel ontologyModel) {
+		logger.info("*********************************************");
+		logger.info("INROnto - Relationships per concept");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -45,10 +48,10 @@ public class INROnto {
 
 		double inronto = (double) nsc / nc;
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of all subconcepts: " + nsc);
-		System.out.println("INROnto: " + inronto);
-		System.out.println("*********************************************");
+		logger.info("Number of all concepts: " + nc);
+		logger.info("Number of all subconcepts: " + nsc);
+		logger.info("INROnto: " + inronto);
+		logger.info("*********************************************");
 
 	}
 

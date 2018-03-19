@@ -15,6 +15,7 @@
 package ontology.metrics;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
@@ -30,19 +31,23 @@ import org.slf4j.LoggerFactory;
  * ANOnto -
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
  */
 public class CalculateMetrics {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
-	private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto", "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
-			"NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto", "TMOnto2" };
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+	// private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto",
+	// "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
+	// "NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto",
+	// "TMOnto2" };
+
+	private static String[] metrics = { "PROnto" };
 
 	public CalculateMetrics() {
 
 	}
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("STARTED...");
+		logger.info("STARTED...");
 		if (args.length > 0) {
 			String ontFile = args[0];
 			OntModel ontologyModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, null);
@@ -51,7 +56,7 @@ public class CalculateMetrics {
 			ExtendedIterator<Ontology> iterator = ontologyModel.listOntologies();
 			// in case we want to access ontology metadata (imports etc.)
 			Ontology ontology = iterator.next();
-			// System.out.println(ontology.getURI());
+			// logger.info(ontology.getURI());
 
 			for (String metric : metrics) {
 				Class<?> klas = null;
@@ -66,7 +71,7 @@ public class CalculateMetrics {
 				}
 			}
 		}
-		System.out.println("...FINISHED");
+		logger.info("...FINISHED");
 
 	}
 }

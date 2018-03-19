@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,10 +36,12 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class TMOnto2 {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public TMOnto2(OntModel ontologyModel) {
-		System.out.println("TMOnto2 - Tangledness2");
+		logger.info("*********************************************");
+
+		logger.info("TMOnto2 - Tangledness2");
 
 		// Find all subClass concepts (classes) in the graph
 		int ncm1p = 0;
@@ -50,10 +53,10 @@ public class TMOnto2 {
 		}
 		double tmonto2 = (double) npc / ncm1p;
 
-		System.out.println("Number of concepts with more than 1 parent: " + ncm1p);
-		System.out.println("Number of direct parents belonging to concepts with more than 1 parent: " + npc);
-		System.out.println("TMOnto2: " + tmonto2);
-		System.out.println("*********************************************");
+		logger.info("Number of concepts with more than 1 parent: " + ncm1p);
+		logger.info("Number of direct parents belonging to concepts with more than 1 parent: " + npc);
+		logger.info("TMOnto2: " + tmonto2);
+		logger.info("*********************************************");
 
 	}
 
@@ -83,14 +86,12 @@ public class TMOnto2 {
 						Integer count = results.get(ontClass);
 						if (count == null) {
 							results.put(ontClass, 1);
-							// System.out.println(
-							// i + " Class " + ontClass.getLocalName() + " has superClass " +
-							// p.getLocalName());
+							logger.debug(
+									i + " Class " + ontClass.getLocalName() + " has superClass " + p.getLocalName());
 						} else {
 							results.put(ontClass, count + 1);
-							// System.out.println(
-							// i + " Class " + ontClass.getLocalName() + " has superClass " +
-							// p.getLocalName());
+							logger.debug(
+									i + " Class " + ontClass.getLocalName() + " has superClass " + p.getLocalName());
 						}
 					}
 				}

@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -37,16 +38,18 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class RFCOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public RFCOnto(OntModel ontologyModel) {
-		System.out.println("RFCOnto - Response for a concept");
+		logger.info("*********************************************");
+
+		logger.info("RFCOnto - Response for a concept");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
 
 		// get number of all properties in the ontology
-		int npro = getNumberOfProperties(allConcepts);
+		int npro = getNumberOfDirectUsagesOfProperties(allConcepts);
 
 		// Find all subClass concepts (classes) in the graph
 		int npar = 0;
@@ -57,12 +60,12 @@ public class RFCOnto {
 
 		double tmonto2 = (double) (npro + npar) / allConcepts.size();
 
-		System.out.println("Number of all concepts: " + allConcepts.size());
-		System.out.println("Number of all direct properties: " + npro);
-		System.out.println("Number of concepts with some parent: " + cwp.size());
-		System.out.println("Number of parent concepts belonging to concepts with some parent: " + npar);
-		System.out.println("TMOnto2: " + tmonto2);
-		System.out.println("*********************************************");
+		logger.info("Number of concepts: " + allConcepts.size());
+		logger.info("Number of usages of direct properties: " + npro);
+		logger.info("Number of concepts with some parent: " + cwp.size());
+		logger.info("Number of parent concepts belonging to concepts with some parent: " + npar);
+		logger.info("TMOnto2: " + tmonto2);
+		logger.info("*********************************************");
 
 	}
 
@@ -86,7 +89,7 @@ public class RFCOnto {
 	 * @return List of subconcepts
 	 * @author Andrej Tibaut
 	 */
-	public int getNumberOfProperties(final List<OntClass> iConcepts) {
+	public int getNumberOfDirectUsagesOfProperties(final List<OntClass> iConcepts) {
 		int np = 0; // number of subconcepts
 
 		for (OntClass aConcept : iConcepts) {
@@ -123,12 +126,12 @@ public class RFCOnto {
 						Integer count = results.get(ontClass);
 						if (count == null) {
 							results.put(ontClass, 1);
-							// System.out.println(
+							// logger.info(
 							// i + " Class " + ontClass.getLocalName() + " has superClass " +
 							// p.getLocalName());
 						} else {
 							results.put(ontClass, count + 1);
-							// System.out.println(
+							// logger.info(
 							// i + " Class " + ontClass.getLocalName() + " has superClass " +
 							// p.getLocalName());
 						}

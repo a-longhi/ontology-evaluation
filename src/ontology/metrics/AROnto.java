@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -33,12 +34,13 @@ import org.slf4j.LoggerFactory;
  * http://miuras.inf.um.es/oquarewiki/
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
  */
 public class AROnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public AROnto(OntModel ontologyModel) {
+		logger.info("*********************************************");
+		logger.info("AROnto - Attribute richness");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -49,10 +51,10 @@ public class AROnto {
 
 		double AROnto = (double) ncr / nc;
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of restrictions for the concepts: " + ncr);
-		System.out.println("AROnto: " + AROnto);
-		System.out.println("*********************************************");
+		logger.info("Number of all concepts: " + nc);
+		logger.info("Number of restrictions for the concepts: " + ncr);
+		logger.info("AROnto: " + AROnto);
+		logger.info("*********************************************");
 	}
 
 	/**

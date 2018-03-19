@@ -14,8 +14,7 @@
  */
 package ontology.metrics;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -35,10 +34,11 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class CBOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public CBOnto(OntModel ontologyModel) {
-		System.out.println("CBOnto - Coupling between Objects");
+		logger.info("*********************************************");
+		logger.info("CBOnto - Coupling between Objects");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -47,19 +47,20 @@ public class CBOnto {
 		int npar = getNumberOfAllAncestors(allConcepts);
 
 		// Find all subClass concepts (classes) in the graph
-		int npart = 0;
-		final HashMap<OntClass, Integer> cwpt = findConpcetsWithOwlThingAsDirectAncestor(ontologyModel);
-		for (Iterator<Integer> itr = cwpt.values().iterator(); itr.hasNext();) {
-			npart = npart + itr.next();
+		final List<OntClass> cwpt = findConpcetsWithOwlThingAsDirectAncestor(ontologyModel);
+		for (OntClass ontClass : cwpt) {
+			OntClass thing = ontClass.getSuperClass();
+			String name = ((thing == null) || (thing.getLocalName() == null) ? "N/A" : thing.getLocalName());
+			logger.info(" Class " + ontClass.getLocalName() + " has superClass " + name);
 		}
 
-		double cboonto = (double) npar / (allConcepts.size() - npart);
+		double cboonto = (double) npar / (allConcepts.size() - cwpt.size());
 
-		System.out.println("Number of all concepts: " + allConcepts.size());
-		System.out.println("Number of all ancestor concepts (with some ancestor): " + npar);
-		System.out.println("Number of concepts with owl:Thing as direct ancestor: " + npart);
-		System.out.println("CBOOnto: " + cboonto);
-		System.out.println("*********************************************");
+		logger.info("Number of all concepts: " + allConcepts.size());
+		logger.info("Number of all ancestor concepts (with some ancestor): " + npar);
+		logger.info("Number of concepts with owl:Thing as direct ancestor: " + cwpt.size());
+		logger.info("CBOOnto: " + cboonto);
+		logger.info("*********************************************");
 
 	}
 
@@ -83,38 +84,11 @@ public class CBOnto {
 	 *         including corresponding number of parents
 	 * @author Andrej Tibaut
 	 */
-	public static HashMap<OntClass, Integer> findConpcetsWithOwlThingAsDirectAncestor(final OntModel iOntModel) {
-		int i = 0;
-		final HashMap<OntClass, Integer> results = new HashMap<OntClass, Integer>();
+	public static List<OntClass> findConpcetsWithOwlThingAsDirectAncestor(final OntModel iOntModel) {
 
 		// list of concepts that have owl:Thing as their direct super-concept
-		ListIterator<OntClass> rootConcepts = iOntModel.listHierarchyRootClasses().toList().listIterator();
+		return iOntModel.listHierarchyRootClasses().toList();
 
-		while (rootConcepts.hasNext()) {
-			OntClass ontClass = (OntClass) rootConcepts.next();
-			if (ontClass.getURI() != null) {
-				// get only direct parent concepts (=true) and without owl:Thing
-				final List<OntClass> parents = ontClass.listSubClasses(true).toList();
-				if (parents.size() > 0) {
-					i++;
-					for (OntClass p : parents) {
-						Integer count = results.get(ontClass);
-						if (count == null) {
-							results.put(ontClass, 1);
-							// System.out.println(
-							// i + " Class " + ontClass.getLocalName() + " has superClass " +
-							// p.getLocalName());
-						} else {
-							results.put(ontClass, count + 1);
-							// System.out.println(
-							// i + " Class " + ontClass.getLocalName() + " has superClass " +
-							// p.getLocalName());
-						}
-					}
-				}
-			}
-		}
-		return results;
 	}
 
 	/**

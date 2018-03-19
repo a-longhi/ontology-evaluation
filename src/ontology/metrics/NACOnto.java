@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -35,10 +36,12 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class NACOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public NACOnto(OntModel ontologyModel) {
-		System.out.println("NACOnto - Number of Ancestor Concepts");
+		logger.info("*********************************************");
+
+		logger.info("NACOnto - Number of Ancestor Concepts");
 
 		// find all concepts in the ontology
 		final List<OntClass> leafConcepts = findLeafConcepts(ontologyModel);
@@ -48,10 +51,10 @@ public class NACOnto {
 
 		double naconto = (double) nalc / leafConcepts.size();
 
-		System.out.println("Number of all leaf concepts: " + leafConcepts.size());
-		System.out.println("Number of all direct ancestors of leafs: " + nalc);
-		System.out.println("NACOnto: " + naconto);
-		System.out.println("*********************************************");
+		logger.info("Number of all leaf concepts: " + leafConcepts.size());
+		logger.info("Number of all direct ancestors of leafs: " + nalc);
+		logger.info("NACOnto: " + naconto);
+		logger.info("*********************************************");
 
 	}
 
@@ -69,7 +72,7 @@ public class NACOnto {
 		while (concepts.hasNext()) {
 			OntClass aConcept = (OntClass) concepts.next();
 			if (aConcept.listSubClasses(true).toList().size() == 0) {
-				// System.out.println("LEAF: " + aConcept.getLocalName());
+				// logger.info("LEAF: " + aConcept.getLocalName());
 				results.add(aConcept);
 			}
 		}

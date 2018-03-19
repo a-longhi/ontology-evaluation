@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
@@ -36,13 +37,13 @@ import org.slf4j.LoggerFactory;
  * ontology. Reference: http://miuras.inf.um.es/oquarewiki/
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
  */
 public class ANOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public ANOnto(OntModel ontologyModel) {
-		System.out.println("ANOnto - Annotation Richness");
+		logger.info("*********************************************");
+		logger.info("ANOnto - Annotation Richness");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -54,10 +55,10 @@ public class ANOnto {
 
 		double ANOnto = (double) nca / nc;
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of annotations of all concepts: " + nca);
-		System.out.println("ANOnto: " + ANOnto);
-		System.out.println("*********************************************");
+		logger.info("Number of all concepts: " + nc);
+		logger.info("Number of annotations of all concepts: " + nca);
+		logger.info("ANOnto: " + ANOnto);
+		logger.info("*********************************************");
 	}
 
 	/**
@@ -86,8 +87,10 @@ public class ANOnto {
 
 		ListIterator<OntClass> liConcepts = iConcepts.listIterator();
 
+
 		while (liConcepts.hasNext()) {
 			OntClass ontClass = (OntClass) liConcepts.next();
+//			ontClass.list
 			if (ontClass.getURI() != null) {
 
 				Resource c = ontClass.getOntModel().createResource(ontClass.getNameSpace() + ontClass.getLocalName());
@@ -96,7 +99,6 @@ public class ANOnto {
 					Statement stmt = iter.nextStatement();
 					RDFNode resource = (RDFNode) stmt.getObject().asLiteral();
 					results.add(resource);
-					// System.out.println(i++ + " " + resource.toString());
 				}
 
 				c = ontClass.getOntModel().createResource(ontClass.getNameSpace() + ontClass.getLocalName());
@@ -105,7 +107,6 @@ public class ANOnto {
 					Statement stmt = iter.nextStatement();
 					RDFNode resource = (RDFNode) stmt.getObject().asLiteral();
 					results.add(resource);
-					// System.out.println(i++ + " " + resource.toString());
 				}
 
 				c = ontClass.getOntModel().createResource(ontClass.getNameSpace() + ontClass.getLocalName());
@@ -114,7 +115,6 @@ public class ANOnto {
 					Statement stmt = iter.nextStatement();
 					RDFNode resource = (RDFNode) stmt.getObject().asLiteral();
 					results.add(resource);
-					// System.out.println(i++ + " " + resource.toString());
 				}
 
 				c = ontClass.getOntModel().createResource(ontClass.getNameSpace() + ontClass.getLocalName());
@@ -123,7 +123,6 @@ public class ANOnto {
 					Statement stmt = iter.nextStatement();
 					RDFNode resource = (RDFNode) stmt.getObject().asLiteral();
 					results.add(resource);
-					// System.out.println(i++ + " " + resource.toString());
 				}
 
 				c = ontClass.getOntModel().createResource(ontClass.getNameSpace() + ontClass.getLocalName());
@@ -132,7 +131,6 @@ public class ANOnto {
 					Statement stmt = iter.nextStatement();
 					RDFNode resource = (RDFNode) stmt.getObject().asLiteral();
 					results.add(resource);
-					// System.out.println(i++ + " " + resource.toString());
 				}
 
 			}

@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
@@ -34,23 +35,25 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class NOMOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public NOMOnto(OntModel ontologyModel) {
+		logger.info("*********************************************");
+		logger.info("NOMOnto - Number of properties");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
 		int nc = allConcepts.size();
 
 		// get number of all properties in the ontology
-		int np = getNumberOfProperties(allConcepts);
+		int np = getNumberOfUsagesOfDirectProperties(allConcepts);
 
 		double nomonto = (double) np / nc;
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of all direct properties: " + np);
-		System.out.println("NOMOnto: " + nomonto);
-		System.out.println("*********************************************");
+		logger.info("Number of concepts: " + nc);
+		logger.info("Number of direct usages of properties: " + np);
+		logger.info("NOMOnto: " + nomonto);
+		logger.info("*********************************************");
 
 	}
 
@@ -86,7 +89,7 @@ public class NOMOnto {
 	 * @return List of subconcepts
 	 * @author Andrej Tibaut
 	 */
-	public int getNumberOfProperties(final List<OntClass> iConcepts) {
+	public int getNumberOfUsagesOfDirectProperties(final List<OntClass> iConcepts) {
 		int np = 0; // number of subconcepts
 
 		for (OntClass aConcept : iConcepts) {

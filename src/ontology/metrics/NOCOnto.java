@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 
 import org.apache.jena.ontology.OntClass;
@@ -35,10 +36,12 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class NOCOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public NOCOnto(OntModel ontologyModel) {
-		System.out.println("NOCOnto (Number of Children Concepts");
+		logger.info("*********************************************");
+
+		logger.info("NOCOnto (Number of Children Concepts");
 
 		// find all concepts in the ontology
 		final List<OntClass> allConcepts = findAllConcepts(ontologyModel);
@@ -52,11 +55,11 @@ public class NOCOnto {
 
 		double noconto = (double) nsc / (allConcepts.size() - nlc);
 
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of all direct subconcepts: " + nsc);
-		System.out.println("Number of all leaf concepts: " + nlc);
-		System.out.println("NOCOnto: " + noconto);
-		System.out.println("*********************************************");
+		logger.info("Number of all concepts: " + nc);
+		logger.info("Number of all direct subconcepts: " + nsc);
+		logger.info("Number of all leaf concepts: " + nlc);
+		logger.info("NOCOnto: " + noconto);
+		logger.info("*********************************************");
 
 	}
 

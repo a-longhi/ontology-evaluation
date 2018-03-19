@@ -14,6 +14,8 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
+
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntResource;
@@ -29,13 +31,15 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class CROnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public CROnto(OntModel ontologyModel) {
+		logger.info("*********************************************");
+		logger.info("CROnto - Class Richness");
 
 		double inrOnto = getCROnto(ontologyModel);
-		System.out.println("CROnto: " + inrOnto);
-		System.out.println("*********************************************");
+		logger.info("CROnto: " + inrOnto);
+		logger.info("*********************************************");
 
 	}
 
@@ -55,8 +59,8 @@ public class CROnto {
 				}
 			}
 		}
-		System.out.println("Number of all concepts: " + nc);
-		System.out.println("Number of all direct individuals: " + nin);
+		logger.info("Number of all concepts: " + nc);
+		logger.info("Number of all direct individuals: " + nin);
 
 		inrOnto = nin / nc;
 

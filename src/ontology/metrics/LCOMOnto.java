@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,10 +40,12 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class LCOMOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public LCOMOnto(OntModel ontologyModel) {
-		System.out.println("LCOMOnto - Lack of Cohesion in Methods");
+		logger.info("*********************************************");
+
+		logger.info("LCOMOnto - Lack of Cohesion in Methods");
 
 		int allPathsLength = 0;
 		List<List<OntClass>> allPathsThing2Leaf = getAllPathsFromThing2Leaf(ontologyModel);
@@ -50,11 +53,11 @@ public class LCOMOnto {
 			allPathsLength += path.size();
 		}
 
-		System.out.println("Number of all leaf paths: " + allPathsThing2Leaf.size());
-		System.out.println("Sum of all legths of all paths between Thing and leaf: " + allPathsLength);
+		logger.info("Number of all leaf paths: " + allPathsThing2Leaf.size());
+		logger.info("Sum of all legths of all paths between Thing and leaf: " + allPathsLength);
 		double LCOMOnto = (double) allPathsLength / allPathsThing2Leaf.size();
-		System.out.println("LCOMOnto (Lack of Cohesion in Methods)):" + LCOMOnto);
-		System.out.println("*********************************************");
+		logger.info("LCOMOnto (Lack of Cohesion in Methods)):" + LCOMOnto);
+		logger.info("*********************************************");
 
 	}
 
@@ -78,7 +81,7 @@ public class LCOMOnto {
 			String name = ((theThing == null) || (theThing.getLocalName() == null) ? "N/A" : theThing.getLocalName());
 			allPathsThing2Leaf = searchDepthFirstAllThing2LeafPaths(aConcept, name);
 		}
-		// System.out.println("All paths Thing to leaf: " + allPathsThing2Leaf);
+		// logger.info("All paths Thing to leaf: " + allPathsThing2Leaf);
 
 		return allPathsThing2Leaf;
 	}
@@ -87,7 +90,7 @@ public class LCOMOnto {
 		List<List<OntClass>> retLists = new ArrayList<>();
 
 		if (iConcept.listSubClasses(true).toList().size() == 0) {
-			// System.out.println(s + " --> " + iConcept.getLocalName());
+			// logger.info(s + " --> " + iConcept.getLocalName());
 			List<OntClass> leafList = new LinkedList<>();
 			leafList.add(iConcept);
 			retLists.add(leafList);

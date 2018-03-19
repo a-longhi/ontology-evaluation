@@ -14,6 +14,7 @@
  */
 package ontology.metrics;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -39,15 +40,16 @@ import org.slf4j.LoggerFactory;
  * @version 10.12.2017 1.0
  */
 public class DITOnto {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	public DITOnto(OntModel ontologyModel) {
-		System.out.println("DITOnto - Depth of subsumption hierarchy");
+		logger.info("*********************************************");
+		logger.info("DITOnto - Depth of subsumption hierarchy");
 
 		int ditOnto = findLongestPathFromThing2Leaf(ontologyModel);
 
-		System.out.println("DITOnto: " + ditOnto);
-		System.out.println("*********************************************");
+		logger.info("DITOnto: " + ditOnto);
+		logger.info("*********************************************");
 
 	}
 
@@ -71,9 +73,9 @@ public class DITOnto {
 			String name = ((theThing == null) || (theThing.getLocalName() == null) ? "N/A" : theThing.getLocalName());
 			allPathsThing2Leaf = searchDepthFirstAllThing2LeafPaths(aConcept, name);
 		}
-		// System.out.println("All paths Thing to leaf: " + allPathsThing2Leaf);
+		logger.debug("All paths Thing to leaf: " + allPathsThing2Leaf);
 		List<OntClass> maxLengthList = allPathsThing2Leaf.stream().max(Comparator.comparingInt(List::size)).get();
-		// System.out.println("Maximal length path Thing to leaf: " + maxLengthList);
+		logger.debug("Maximal length path Thing to leaf: " + maxLengthList);
 
 		return maxLengthList.size();
 	}
@@ -82,7 +84,7 @@ public class DITOnto {
 		List<List<OntClass>> retLists = new ArrayList<>();
 
 		if (iConcept.listSubClasses(true).toList().size() == 0) {
-			// System.out.println(s + " --> " + iConcept.getLocalName());
+			logger.debug(s + " --> " + iConcept.getLocalName());
 			List<OntClass> leafList = new LinkedList<>();
 			leafList.add(iConcept);
 			retLists.add(leafList);
