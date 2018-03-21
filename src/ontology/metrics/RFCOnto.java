@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * concept and ProCj is its j-th property and ParCk is its k-th parent.
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class RFCOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

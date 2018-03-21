@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  * CROnto=∑| ICi| / ∑|Ci |; where ICi, is the set of individuals of the Ci.
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ *
  */
 public class CROnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

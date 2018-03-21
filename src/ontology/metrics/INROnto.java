@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * http://miuras.inf.um.es/oquarewiki/
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class INROnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

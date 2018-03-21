@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * direct parent.
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class CBOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

@@ -35,9 +35,7 @@ import org.slf4j.LoggerFactory;
  * Inspired by:
  * https://stackoverflow.com/questions/40626898/getting-all-possible-paths-in-a-tree-structure
  * 
- * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
  */
 public class DITOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

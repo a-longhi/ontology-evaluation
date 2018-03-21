@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * property.
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class NOMOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

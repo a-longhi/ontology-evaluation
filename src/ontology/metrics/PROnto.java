@@ -18,15 +18,12 @@ import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
-import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntClass;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.ResIterator;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
@@ -36,15 +33,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * PROnto (Properties Richness): Number of usage of direct object and data
- * properties (owl:ObjectProperty, owl:DatatypeProperty) divided by the sum of
- * subconcepts (rdfs:subClassOf) plus object and data properties
- * (owl:ObjectProperty, owl:DatatypeProperty) of the concepts. Formula:
- * RROnto=∑|ProCij| ∕ ∑(|SubCk| + ∑|ProCij|); where ProCij is the i-th property
- * of the j-th concept and SubCk is the k-th subconcept in the ontology.
+ * PROnto (Properties Richness): Sum of usages of object and data properties in
+ * axioms for concepts (also including owl:intersectionOf, owl:unionOf) and
+ * individuals divided by the sum of all direct subconcepts (rdfs:subClassOf)
+ * plus number of properties defined as owl:ObjProperty and owl:DataPropery in
+ * the ontology. Formula: PROnto=(∑Ci∑ProCj + ∑Ij∑ProCk) ∕ (∑Ci∑(SubCl +
+ * ∑Ci∑ProCl), where Ci is the i-th concept and ProCj is its j-th property, Ij
+ * is the j-th individual and ProcCk is its k-th property, SubCl is its l-th
+ * subconcept, and ProcCl is the l-th object or data property defined for the
+ * concept Ci.
+ * 
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class PROnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -60,14 +61,6 @@ public class PROnto {
 		// get number of all subconcepts in the ontology
 		int nsc = getNumberOfSubconcepts(allConcepts);
 
-		// get number of usage of direct object properties in the ontology
-		int nuop = 0;
-		// int nuop = getNumberOfUsageOfDirectObjectProperties(ontologyModel);
-
-		// get number of usage of direct object properties in the ontology
-		int nudp = 0;
-		// int nudp = getNumberOfUsageOfDirectDataProperties(ontologyModel);
-
 		// get number of usage of direct data properties in the ontology
 		int nop = getNumberOfObjectProperties(ontologyModel);
 
@@ -75,32 +68,20 @@ public class PROnto {
 		int ndp = getNumberOfDataProperties(ontologyModel);
 
 		List<Resource> up = getNumberOfUsagesOfPropertiesInConcepts(ontologyModel);
+		List<Resource> ui = getNumberOfUsagesOfPropertiesInIndividuals(ontologyModel);
 
-		double pronto = (double) (nuop + nudp) / (nop + nop + ndp);
+		double pronto = (double) (up.size() + ui.size()) / (nsc + nop + ndp);
 
 		logger.info("Number of all concepts: " + nc);
 		logger.info("Number of all subconcepts: " + nsc);
 		logger.info("Number of object properties: " + nop);
 		logger.info("Number of data properties: " + ndp);
 
-		logger.info("Number of all usages of object and data properties: " + up.size());
-		// logger.info("Number of all usages of data properties: " + nudp);
+		logger.info("Number of all usages object and data properties in concepts: " + up.size());
+		logger.info("Number of all usages of object and data properties in individuals: " + ui.size());
 
 		logger.info("PROnto: " + pronto);
 		logger.info("*********************************************");
-		// getStatements(ontologyModel);
-		// getUndefinedProperties(ontologyModel);
-	}
-
-	/**
-	 * The method finds all concepts in the ontology.
-	 * 
-	 * @param iOntologyModel
-	 * @return List of concepts in the ontology
-	 * @author Andrej Tibaut
-	 */
-	public static List<Individual> findAllIndividuals(final OntModel iOntologyModel) {
-		return iOntologyModel.listIndividuals().toList();
 	}
 
 	/**
@@ -122,37 +103,6 @@ public class PROnto {
 		return nsc;
 	}
 
-	public void getProperties(final OntModel iOntologyModel) {
-
-		ExtendedIterator<ObjectProperty> op = iOntologyModel.listObjectProperties();
-
-		while (op.hasNext()) {
-			ObjectProperty p = op.next();
-			System.out.println("OP: " + p);
-			ResIterator iter = iOntologyModel.listResourcesWithProperty(p);
-			if (iter.hasNext()) {
-				System.out.println("The database contains vcards for:");
-				while (iter.hasNext()) {
-					System.out.println("  " + iter.nextResource().getRequiredProperty(p).getString());
-				}
-			} else {
-				System.out.println("No vcards were found in the database");
-			}
-		}
-
-	}
-
-	public void getStatements(final OntModel iOntologyModel) {
-
-		StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property) null, (RDFNode) null);
-
-		while (iter.hasNext()) {
-			Statement p = iter.next();
-			System.out.println("STAT: " + p);
-		}
-
-	}
-
 	/**
 	 * The method searches all uses of object and data properties in individuals
 	 * 
@@ -164,27 +114,25 @@ public class PROnto {
 		List<Resource> retList = new ArrayList<>();
 
 		List<Individual> individuals = iOntologyModel.listIndividuals().toList();
+		String ns = iOntologyModel.getNsPrefixURI("");
 
 		for (Individual aIndividual : individuals) {
-			System.out.println("IND: " + aIndividual.getURI());
+			logger.debug("Individual: " + aIndividual.getURI());
 			StmtIterator iter = iOntologyModel.listStatements(aIndividual, (Property) null, (RDFNode) null);
-			// StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property)
-			// null, (RDFNode) null);
 			while (iter.hasNext()) {
 				Statement s = iter.nextStatement();
-				System.out.println(" -->STMT: " + s);
+				logger.debug("Ind.Statement: " + s);
 
 				if (s.getPredicate() instanceof Property) {
 					Property r = s.getPredicate();
-					if (r.isURIResource()) {
-						System.out.println("  -->PROP: " + r.toString());
-						// retList.addAll(nodeList);
+					if (r.isURIResource() && r.getNameSpace().startsWith(ns)) {
+						logger.debug(">Ind.Property: " + r.toString());
+						retList.add(r);
 					}
 				}
 
 			}
 		}
-		// logger.debug("All used properties: " + retList);
 
 		return retList;
 
@@ -204,18 +152,15 @@ public class PROnto {
 		List<OntClass> concepts = iOntologyModel.listNamedClasses().toList();
 
 		for (OntClass aConcept : concepts) {
-			System.out.println("CLAZ: " + aConcept.getURI());
+			logger.debug("Class: " + aConcept.getURI());
 			StmtIterator iter = iOntologyModel.listStatements(aConcept, (Property) null, (RDFNode) null);
-			// StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property)
-			// null, (RDFNode) null);
 			while (iter.hasNext()) {
 				Statement s = iter.nextStatement();
-				System.out.println(" -->STMT: " + s);
+				logger.debug(">Class.Statement: " + s);
 
 				if (s.getObject() instanceof Resource) {
 					Resource r = (Resource) s.getObject();
 					if (!r.isURIResource()) {
-						// System.out.println(" -->ID: " + r.toString());
 						List<Resource> nodeList = getUsedPropertyResources(iOntologyModel, r);
 						retList.addAll(nodeList);
 					}
@@ -224,8 +169,7 @@ public class PROnto {
 					// [http://www.co-ode.org/ontologies/pizza/pizza.owl#Mushroom,
 					// http://www.w3.org/2004/02/skos/core#prefLabel, "Mushroom"@en] where literal
 					// is "Mushroom@en"
-					System.out.println(" -->LITERAL: " + s.getObject());
-					// System.out.println(" -->LITERAL: " + s.getLiteral().getLexicalForm());
+					logger.debug(">Class.Literal: " + s.getObject());
 				}
 
 			}
@@ -247,14 +191,12 @@ public class PROnto {
 		List<Resource> retList = new ArrayList<>();
 
 		if (iResource.isURIResource()) {
-			// System.out.println(" -->LITERAL: " + iResource.getURI());
 			if (iResource.canAs(OntProperty.class)) {
 				OntProperty op = iResource.as(OntProperty.class);
-				System.out.println("       -->PROP: " + op.toString());
+				logger.debug(">>Property: " + op.toString());
 				retList.add(op);
 			}
 		} else {
-			// System.out.println(" -->RDFNODE: " + iResource);
 			StmtIterator it = iOntologyModel.listStatements(iResource, (Property) null, (RDFNode) null);
 			while (it.hasNext()) {
 				Statement st = it.nextStatement();
@@ -266,7 +208,6 @@ public class PROnto {
 
 			}
 		}
-		// logger.debug("All used properties in concepts: " + retList);
 
 		return retList;
 
@@ -296,65 +237,6 @@ public class PROnto {
 	public int getNumberOfDataProperties(final OntModel iOntologyModel) {
 
 		return iOntologyModel.listDatatypeProperties().toList().size();
-	}
-
-	/**
-	 * The method finds all direct properties for the given list of concepts
-	 * 
-	 * @param iConcepts
-	 *            list of all ontology concepts
-	 * @return List of subconcepts
-	 * @author Andrej Tibaut
-	 */
-	public int getNumberOfUsageOfDirectObjectProperties(final OntModel iOntologyModel) {
-		int np = 0; // number of properties
-
-		ExtendedIterator<ObjectProperty> s = iOntologyModel.listObjectProperties();
-		while (s.hasNext()) {
-			ObjectProperty op = s.next();
-			ExtendedIterator<? extends OntClass> lc = op.listDeclaringClasses();
-			if (lc.hasNext()) {
-				List<? extends OntClass> lp = lc.toList();
-
-				np += lp.size();
-				logger.debug(" Object property " + op.getLocalName() + " is used in " + lp);
-				// for (OntClass oc = lp.hasNext()) {
-				// }
-
-			}
-			lc.close();
-		}
-
-		return np;
-	}
-
-	/**
-	 * The method finds all use of direct data properties
-	 * 
-	 * @param iConcepts
-	 *            list of all ontology concepts
-	 * @return List of subconcepts
-	 * @author Andrej Tibaut
-	 */
-	public int getNumberOfUsageOfDirectDataProperties(final OntModel iOntologyModel) {
-		int np = 0; // number of properties
-
-		// ResIterator ri = iOntologyModel.listResourcesWithProperty(RDF.predicate,
-		// OWL2.Axiom);
-
-		ExtendedIterator<DatatypeProperty> s = iOntologyModel.listDatatypeProperties();
-		while (s.hasNext()) {
-			DatatypeProperty ldp = (DatatypeProperty) s.next();
-			ExtendedIterator<? extends OntClass> lc = ldp.listDeclaringClasses(true);
-			if (lc.hasNext()) {
-				List<? extends OntClass> lp = lc.toList();
-				np += lp.size();
-				logger.debug(" Data property " + ldp.getLocalName() + " is used in " + lp.toString());
-			}
-			lc.close();
-		}
-
-		return np;
 	}
 
 	@Deprecated

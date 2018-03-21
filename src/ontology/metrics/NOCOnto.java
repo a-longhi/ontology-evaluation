@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * 
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class NOCOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

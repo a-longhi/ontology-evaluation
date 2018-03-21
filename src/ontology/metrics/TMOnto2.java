@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  * concept with more than one direct parent in the ontology.
  * 
  * @author Andrej Tibaut
- * @version 10.12.2017 1.0
+ * 
  */
 public class TMOnto2 {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
