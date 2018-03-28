@@ -20,7 +20,7 @@
 
 <!-- about this schema -->
 
-<owl:Ontology rdf:about="http://usefulinc.com/ns/doap#">
+<owl:Ontology rdf:about="http://usefulinc.com/ns/doap">
 	<owl:imports rdf:resource="http://xmlns.com/foaf/0.1/index.rdf" />
 
 	<dc:title>Description of a Project (DOAP) vocabulary</dc:title>

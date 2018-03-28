@@ -21,9 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
-import org.apache.jena.ontology.Ontology;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.util.iterator.ExtendedIterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +35,12 @@ import org.slf4j.LoggerFactory;
 public class CalculateMetrics {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto", "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
-			"NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto", "TMOnto2", "CPOnto" };
+	// private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto",
+	// "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
+	// "NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto",
+	// "TMOnto2", "CPOnto", "AGOnto" };
+
+	private static String[] metrics = { "AGOnto" };
 
 	public CalculateMetrics() {
 
@@ -54,12 +56,15 @@ public class CalculateMetrics {
 			// definitions
 			// rdf:Description rdf:about="http://www.w3.org/2000/10/swap/pim/contact#Person"
 			ontologyModel.setStrictMode(false);
+			// gets URI from the namespace without prefix, e.g.
+			// xmlns="http://www.cidoc-crm.org/cidoc-crm/"
 			String nameSpace = ontologyModel.getNsPrefixURI("");
-			logger.info(nameSpace);
-			ExtendedIterator<Ontology> iterator = ontologyModel.listOntologies();
+			logger.info("Namespace without prefix: " + nameSpace);
 			// in case we want to access ontology metadata (imports etc.)
-			Ontology ontology = iterator.next();
-			logger.info(ontology.getURI());
+			// Ontology ontology = ontologyModel.getOntology(nameSpace);
+			// gets the URI from ontology, e.g. <owl:Ontology
+			// rdf:about="http://www.cidoc-crm.org/cidoc-crm/">
+			// logger.info("Ontology URI: " + ontology.getURI());
 
 			for (String metric : metrics) {
 				Class<?> klas = null;

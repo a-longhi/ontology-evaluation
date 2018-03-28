@@ -15,6 +15,7 @@
 package ontology.metrics;
 
 import java.lang.invoke.MethodHandles;
+import java.util.Map;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.rdf.model.Property;
@@ -26,20 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * CPOnto (Composability): usage of resources (concepts, properties) from
- * external namespaces divided by the usage of all resources (native and
- * external). The metric describes the composure of the ontology on the scale
- * from a monolithic self-sufficient ontology to a highly composed and
- * interconnected ontology. Formula: CPOnto=(∑CEi + ∑ProEj) ∕ (∑Ck + ∑ProCl +
- * ∑CEi + ∑ProEj), where CEi is the i-th external concept and ProEj is the j-th
- * external property, Ck is the k-th concept and ProcCl is the l-th usage of
- * property in the ontology.
- * 
  * 
  * @author Andrej Tibaut
- * 
+ *
  */
-public class CPOnto {
+public class AGOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static String NS_XML = "http://www.w3.org/XML/1998/namespace";
@@ -49,55 +41,67 @@ public class CPOnto {
 	private static String NS_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	private static String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 
-	public CPOnto(OntModel ontologyModel) {
+	public AGOnto(OntModel ontologyModel) {
 		logger.info("*********************************************");
-		logger.info("CPOnto - Composability");
+		logger.info("AGOnto - Aggregability");
 
 		String baseURI = ontologyModel.getNsPrefixURI("");
 		logger.debug("Base namespace: " + baseURI);
 
-		long ri = getInternalResources(ontologyModel, baseURI);
-		long re = getExternalResources(ontologyModel, baseURI);
+		long rie = getNumOfInternaAndExternalResources(ontologyModel);
+		double re = 0;
 
-		logger.info("Number of all internal (base) resources in axioms: " + ri);
+		Map<String, String> nss = ontologyModel.getNsPrefixMap();
+		for (Map.Entry<String, String> entry : nss.entrySet()) {
+			logger.debug("Namespace: " + entry.getKey() + "+" + NS_OWL + entry.getValue());
+			if (!isDefaultResource(entry.getValue()) && !entry.getValue().startsWith(baseURI)) {
+				long n = getNumOfNSResources(ontologyModel, entry.getValue());
+				logger.debug("n = " + n);
+//				logger.debug("ne% = " + n / rie);
+				re = re + (double) n / (double) rie;
+				logger.debug("N = " + re);
+			}
+
+		}
+
+		logger.info("Number of all internal (base) and external resources in axioms: " + rie);
 		logger.info("Number of all external resources in axioms: " + re);
 
-		double cponto = (double) re / ri;
-		logger.info("CPOnto: " + cponto);
+		double agonto = (double) rie;
+		logger.info("AGOnto: " + agonto);
 		logger.info("*********************************************");
 	}
 
 	/**
-	 * Finds all internal resources
+	 * Finds all external resources not counting default (must-have) ontology
+	 * namespaces
 	 * 
 	 * @param iOntologyModel
 	 *            ontology model
-	 * @param iBaseURI
-	 *            base URI
-	 * @return
+	 * @return number of resources
 	 * @author Andrej Tibaut
 	 */
-	public long getInternalResources(final OntModel iOntologyModel, String iBaseURI) {
+	public long getNumOfInternaAndExternalResources(final OntModel iOntologyModel) {
 		long n = 0;
 
 		StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property) null, (RDFNode) null);
 		while (iter.hasNext()) {
 			Statement s = iter.nextStatement();
-			logger.debug("iStatement: " + s);
+			logger.debug("eStatement: " + s);
 			if (s.getSubject().isURIResource()) {
-				if (isInternalResource(s.getSubject().getNameSpace(), iBaseURI)) {
-					logger.debug(">>iSub: " + s.getSubject().getNameSpace());
+				if (!isDefaultResource(s.getSubject().getNameSpace())) {
+					logger.debug(">>Sub: " + s.getSubject().getNameSpace());
 					n++;
 				}
 			}
-			if (s.getPredicate().isURIResource() && isInternalResource(s.getPredicate().getNameSpace(), iBaseURI)) {
-				logger.debug(">>iPre: " + s.getPredicate().getNameSpace());
+			if (s.getPredicate().isURIResource() && !isDefaultResource(s.getPredicate().getNameSpace())) {
+				logger.debug(">>Pre: " + s.getPredicate().getNameSpace());
 				n++;
 			}
 			if (s.getObject() instanceof Resource) {
 				if (s.getObject().isURIResource()) {
-					if (isInternalResource(s.getObject().asResource().getNameSpace(), iBaseURI)) {
-						logger.debug(">>iObj: " + s.getObject().asResource().getNameSpace());
+					if (!isDefaultResource(s.getObject().asResource().getNameSpace())) {
+						logger.debug(">>Obj: " + s.getObject().asResource().getNameSpace());
 						n++;
 					}
 				}
@@ -110,16 +114,17 @@ public class CPOnto {
 	}
 
 	/**
-	 * Finds all external resources
+	 * Finds all external resources not counting default (must-have) ontology
+	 * namespaces
 	 * 
 	 * @param iOntologyModel
 	 *            ontology model
-	 * @param iBaseURI
-	 *            base URI
-	 * @return
+	 * @param iNS
+	 *            a namespace
+	 * @return number of resources
 	 * @author Andrej Tibaut
 	 */
-	public long getExternalResources(final OntModel iOntologyModel, String iBaseURI) {
+	public long getNumOfNSResources(final OntModel iOntologyModel, String iNS) {
 		long n = 0;
 
 		StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property) null, (RDFNode) null);
@@ -127,19 +132,19 @@ public class CPOnto {
 			Statement s = iter.nextStatement();
 			logger.debug("eStatement: " + s);
 			if (s.getSubject().isURIResource()) {
-				if (isExternalResource(s.getSubject().getNameSpace(), iBaseURI)) {
-					logger.debug(">>eSub: " + s.getSubject().getNameSpace());
+				if (s.getSubject().getNameSpace().startsWith(iNS)) {
+					logger.debug(">>Sub: " + s.getSubject().getNameSpace());
 					n++;
 				}
 			}
-			if (s.getPredicate().isURIResource() && isExternalResource(s.getPredicate().getNameSpace(), iBaseURI)) {
-				logger.debug(">>ePre: " + s.getPredicate().getNameSpace());
+			if (s.getPredicate().isURIResource() && s.getPredicate().getNameSpace().startsWith(iNS)) {
+				logger.debug(">>Pre: " + s.getPredicate().getNameSpace());
 				n++;
 			}
 			if (s.getObject() instanceof Resource) {
 				if (s.getObject().isURIResource()) {
-					if (isExternalResource(s.getObject().asResource().getNameSpace(), iBaseURI)) {
-						logger.debug(">>eObj: " + s.getObject().asResource().getNameSpace());
+					if (s.getObject().asResource().getNameSpace().startsWith(iNS)) {
+						logger.debug(">>Obj: " + s.getObject().asResource().getNameSpace());
 						n++;
 					}
 				}
@@ -161,28 +166,11 @@ public class CPOnto {
 	 * @return true or false
 	 * @author Andrej Tibaut
 	 */
-	public boolean isExternalResource(String iResourceURI, String iBaseNS) {
+	private boolean isDefaultResource(String iResourceURI) {
 
-		return (!iResourceURI.startsWith(NS_XML) && !iResourceURI.startsWith(NS_OWLX)
-				&& !iResourceURI.startsWith(NS_OWL) && !iResourceURI.startsWith(NS_XSD)
-				&& !iResourceURI.startsWith(NS_RDF) && !iResourceURI.startsWith(NS_RDFS)
-				&& !iResourceURI.startsWith(iBaseNS));
-
-	}
-
-	/**
-	 * The method checks if the resource is internal
-	 * 
-	 * @param iResourceURI
-	 *            resource URI
-	 * @param iBaseNS
-	 *            base URI
-	 * @return true or false
-	 * @author Andrej Tibaut
-	 */
-	public boolean isInternalResource(String iResourceURI, String iBaseNS) {
-
-		return (iResourceURI.startsWith(iBaseNS));
+		return (iResourceURI.startsWith(NS_XML) || iResourceURI.startsWith(NS_OWLX) || iResourceURI.startsWith(NS_OWL)
+				|| iResourceURI.startsWith(NS_XSD) || iResourceURI.startsWith(NS_RDF)
+				|| iResourceURI.startsWith(NS_RDFS));
 
 	}
 

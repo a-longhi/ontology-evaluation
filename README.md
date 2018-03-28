@@ -174,6 +174,29 @@ TMOnto2=∑Ci∑AncCj / ∑Ci
 where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
 
 
+## 1.14. CPOnto (Composability)
+CPOnto (Composability): usage of resources in axioms from external namespaces divided by the usage of all resources (base namespace and external namespace). The metric describes the composure of the ontology on the scale from a monolithic self-sufficient ontology to a highly composed and interconnected ontology.
+
+ 
+Formula: 
+
+```
+CPOnto=∑ResEi ∕ (∑ResEi + ∑ResBj))
+```
+
+where ResEi is the i-th external resource and ResBj is the j-th external resource.
+
+
+## 1.14. TMOnto2 (Tangledness)
+Mean number of direct ancestors (super-classes) of concepts with more than 1 direct ancestor (multiple ancestorage). 
+Formula: 
+
+```
+TMOnto2=∑Ci∑AncCj / ∑Ci
+```
+
+where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
+
 # 2. Usage
 
 
