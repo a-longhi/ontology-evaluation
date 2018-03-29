@@ -32,8 +32,7 @@ import org.slf4j.LoggerFactory;
  * sets of the external ontologies. It calculates the percentage of the used
  * resources for the maximal and minimal set according to the total size of all
  * external sets in the maintained ontology. The maximal percentage is then
- * divided by the size of the minimal percentage to get the multiplier. 
- * Formula:
+ * divided by the size of the minimal percentage to get the multiplier. Formula:
  * AGOnto=Max(ENSi/NE, …, ENSn/NE) ∕ Min(ENSi/NE, …, ENSn/NE)
  * 
  * where ENSi is the size of the i-th external namespace (i between 1 and number
@@ -87,17 +86,20 @@ public class AGOnto {
 		logger.info("Number of all used external namespaces in axioms: " + nens);
 		logger.info("Number of all used external resources in axioms: " + ner);
 
-		String mink = ens.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
-		String maxk = ens.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
-		long minv = ens.get(mink);
-		long maxv = ens.get(maxk);
-		double minp = (double) minv / ner;
-		double maxp = (double) maxv / ner;
+		if (nens > 0) {
+			String mink = ens.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
+			String maxk = ens.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+			long minv = ens.get(mink);
+			long maxv = ens.get(maxk);
+			double minp = (double) minv / ner;
+			double maxp = (double) maxv / ner;
 
-		logger.info("Max external resource conceptualization: " + maxk + " contributes resources: " + maxp);
-		logger.info("Min external resource conceptualization: " + mink + " contributes resources: " + minp);
+			logger.info("Max external resource conceptualization: " + maxk + " contributes resources: " + maxp);
+			logger.info("Min external resource conceptualization: " + mink + " contributes resources: " + minp);
 
-		agonto = maxp / minp;
+			agonto = maxp / minp;
+
+		}
 		logger.info("AGOnto: " + agonto);
 		logger.info("*********************************************");
 	}
