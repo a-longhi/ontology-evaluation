@@ -35,12 +35,9 @@ import org.slf4j.LoggerFactory;
 public class CalculateMetrics {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-	// private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto",
-	// "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
-	// "NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto",
-	// "TMOnto2", "CPOnto", "AGOnto" };
-
-	private static String[] metrics = { "AGOnto" };
+	private static String[] metrics = { "LCOMOnto", "WMCOnto2", "DITOnto", "NACOnto", "NOCOnto", "CBOnto", "RFCOnto",
+			"NOMOnto", "RROnto", "PROnto", "AROnto", "INROnto", "CROnto", "ANOnto", "TMOnto2", "CPOnto", "AGOnto",
+			"EXOnto" };
 
 	public CalculateMetrics() {
 

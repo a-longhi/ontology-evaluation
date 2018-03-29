@@ -15,7 +15,6 @@
 package ontology.metrics;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.jena.ontology.OntModel;
@@ -28,22 +27,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * AGOnto (Aggregability): The metric relates to the aggregation size of the
- * sets of the external ontologies. It calculates the percentage of the used
- * resources for the maximal and minimal set according to the total size of all
- * external sets in the maintained ontology. The maximal percentage is then
- * divided by the size of the minimal percentage to get the multiplier. 
- * Formula:
- * AGOnto=Max(ENSi/NE, …, ENSn/NE) ∕ Min(ENSi/NE, …, ENSn/NE)
- * 
- * where ENSi is the size of the i-th external namespace (i between 1 and number
- * of external namespaces), NE is total sum of used external resources in the
- * maintained ontology.
+ * EXOnto (Externes): The metric measures the number of external namespaces that
+ * the maintained ontology consumes. The namespace is considered external if any
+ * of its resources is used at least one time in the maintained ontology.
+ * Standard namespaces (XSD, RDF, RDFS, OWL) are not counted. Formula:
+ * CPOnto=∑ENSi, where ENSi is the i-th external namespace (ontology).
  * 
  * @author Andrej Tibaut
  *
  */
-public class AGOnto {
+public class EXOnto {
 	final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 	private static String NS_XML = "http://www.w3.org/XML/1998/namespace";
@@ -53,18 +46,15 @@ public class AGOnto {
 	private static String NS_RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 	private static String NS_RDFS = "http://www.w3.org/2000/01/rdf-schema#";
 
-	public AGOnto(OntModel ontologyModel) {
+	public EXOnto(OntModel ontologyModel) {
 		logger.info("*********************************************");
-		logger.info("AGOnto - Aggregability");
+		logger.info("EXOnto - Aggregability");
 
 		String baseNS = ontologyModel.getNsPrefixURI("");
 		logger.info("Base namespace: " + baseNS);
 
+		long exonto = 0;
 		long ner = 0;
-		long nens = 0;
-		double agonto = 0;
-
-		Map<String, Long> ens = new HashMap<String, Long>();
 
 		Map<String, String> nss = ontologyModel.getNsPrefixMap();
 		// iterate used namespaces
@@ -75,30 +65,16 @@ public class AGOnto {
 				long er = getNumOfNSResources(ontologyModel, entry.getValue());
 				// it counts only if there are some external resources used
 				if (er > 0) {
-					ner += er;
-					nens++;
-					ens.put(entry.getKey(), er);
-					logger.info("entry: " + entry.getKey() + " contributes n: " + er);
+					ner++;
 				}
 			}
 
 		}
 
-		logger.info("Number of all used external namespaces in axioms: " + nens);
-		logger.info("Number of all used external resources in axioms: " + ner);
+		logger.info("Number of all used external namespaces in axioms: " + ner);
 
-		String mink = ens.entrySet().stream().min(Map.Entry.comparingByValue()).get().getKey();
-		String maxk = ens.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
-		long minv = ens.get(mink);
-		long maxv = ens.get(maxk);
-		double minp = (double) minv / ner;
-		double maxp = (double) maxv / ner;
-
-		logger.info("Max external resource conceptualization: " + maxk + " contributes resources: " + maxp);
-		logger.info("Min external resource conceptualization: " + mink + " contributes resources: " + minp);
-
-		agonto = maxp / minp;
-		logger.info("AGOnto: " + agonto);
+		exonto = ner;
+		logger.info("EXOnto: " + exonto);
 		logger.info("*********************************************");
 	}
 
