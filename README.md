@@ -174,7 +174,7 @@ TMOnto2=∑Ci∑AncCj / ∑Ci
 where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
 
 
-## 1.14. TMOnto2 (Tangledness)
+## 1.14. TMOnto2 (Tangledness) 
 Mean number of direct ancestors (super-classes) of concepts with more than 1 direct ancestor (multiple ancestorage). 
 Formula: 
 
@@ -184,7 +184,7 @@ TMOnto2=∑Ci∑AncCj / ∑Ci
 
 where Ci is the i-th concept with more than one direct ancestor and AncCj is its j-th direct ancestor.
 
-## 1.15. EXOnto (Externes)
+## 1.15. EXOnto (Externes) [NEW]
 The metric measures the number of external namespaces that the maintained ontology consumes. The namespace is considered external if any of its resources is used at least one time in the maintained ontology. Standard namespaces (XSD, RDF, RDFS, OWL) are not counted.
  
 Formula: 
@@ -195,7 +195,7 @@ CPOnto=∑ENSi
 
 where ENSi is the i-th external namespace (ontology).
 
-## 1.16. CPOnto (Composability)
+## 1.16. CPOnto (Composability) [NEW]
 The metric describes the composure of the ontology on the scale from a monolithic self-sufficient ontology to a highly composed and interconnected ontology. It is calculated as the usage of resources in axioms from external namespaces divided by the usage of all resources (base namespace and external namespaces). 
  
 Formula: 
@@ -206,7 +206,7 @@ CPOnto=∑ResEi ∕ (∑ResEi + ∑ResBj)
 
 where ResEi is the i-th external resource and ResBj is the j-th resource from the base namespace.
 
-## 1.17. AGOnto (Aggregability)
+## 1.17. AGOnto (Aggregability) [NEW]
 The metric relates to the aggregation size of the sets of the external ontologies. It calculates the percentage of the used resources for the maximal and minimal set according to the total size of all external sets in the maintained ontology. The maximal percentage is then divided by the size of the minimal percentage to get the multiplier.
 
  
@@ -241,6 +241,10 @@ By default all metrics are calculated. If you want to calculate individual metri
 ```
 private static String[] metrics = { "CPOnto" }; 
 ```
+
+# 3. Test ontologies
+
+There are some test ontologies in the /resource folder.
 
 
 References
