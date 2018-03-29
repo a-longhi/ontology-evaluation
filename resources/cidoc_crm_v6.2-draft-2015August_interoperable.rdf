@@ -1,9 +1,20 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://www.cidoc-crm.org/cidoc-crm/" xml:base="http://www.cidoc-crm.org/cidoc-crm/"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xml="http://www.w3.org/XML/1998/namespace"
+<rdf:RDF 
+    xmlns="http://www.cidoc-crm.org/cidoc-crm/" 
+    xml:base="http://www.cidoc-crm.org/cidoc-crm/"
+    xmlns:dcterms="http://purl.org/dc/terms/" 
+    xmlns:locn="http://www.w3.org/ns/locn#"
+    xmlns:time="http://www.w3.org/2006/time#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:schema="http://schema.org/"
+    xmlns:owl="http://www.w3.org/2002/07/owl#" 
     xmlns:cidoc-crm="http://www.cidoc-crm.org/cidoc-crm/"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    xmlns:person="http://www.w3.org/ns/person#"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#" 
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
     <owl:Ontology rdf:about="http://www.cidoc-crm.org/cidoc-crm/"> </owl:Ontology>
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +40,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P93_took_out_of_existence"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E69_Death"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:comment xml:lang="en">This property property links an E69 Death event to the E21
             Person that died.</rdfs:comment>
         <rdfs:label xml:lang="de">Tod von</rdfs:label>
@@ -44,7 +55,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P100i_died_in">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P93i_was_taken_out_of_existence_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E69_Death"/>
         <rdfs:label xml:lang="en">died in</rdfs:label>
         <rdfs:label xml:lang="fr">est mort par</rdfs:label>
@@ -231,7 +242,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P107_has_current_or_former_member -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P107_has_current_or_former_member">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
         <rdfs:comment xml:lang="en">This property relates an E39 Actor to the E74 Group of which
             that E39 Actor is a member. Groups, Legal Bodies and Persons, may all be members of
@@ -252,7 +263,7 @@
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P107i_is_current_or_former_member_of">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:label xml:lang="fr">est actuel ou ancien membre de</rdfs:label>
         <rdfs:label xml:lang="en">is current or former member of</rdfs:label>
         <rdfs:label xml:lang="de">ist derzeitiges oder früheres Mitglied von</rdfs:label>
@@ -481,8 +492,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P114_is_equal_in_time_to -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P114_is_equal_in_time_to">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This symmetric property allows the instances of E2 Temporal
             Entity with the same E52 Time-Span to be equated. This property is only necessary if the
             time span is unknown (otherwise the equivalence can be calculated). This property is the
@@ -498,8 +509,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P115_finishes -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P115_finishes">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property allows the ending point for a E2 Temporal Entity
             to be situated by reference to the ending point of another temporal entity of longer
             duration. This property is only necessary if the time span is unknown (otherwise the
@@ -515,8 +526,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P115i_is_finished_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P115i_is_finished_by">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="fr">est terminée par</rdfs:label>
         <rdfs:label xml:lang="en">is finished by</rdfs:label>
         <rdfs:label xml:lang="de">wurde beendet mit</rdfs:label>
@@ -527,8 +538,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P116_starts -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P116_starts">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property allows the starting point for a E2 Temporal Entity
             to be situated by reference to the starting point of another temporal entity of longer
             duration. This property is only necessary if the time span is unknown (otherwise the
@@ -544,8 +555,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P116i_is_started_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P116i_is_started_by">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="fr">est commencée par</rdfs:label>
         <rdfs:label xml:lang="en">is started by</rdfs:label>
         <rdfs:label xml:lang="de">wurde begonnen mit</rdfs:label>
@@ -556,8 +567,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P117_occurs_during -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P117_occurs_during">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property allows the entire E52 Time-Span of an E2 Temporal
             Entity to be situated within the Time-Span of another temporal entity that starts before
             and ends after the included temporal entity. This property is only necessary if the time
@@ -574,8 +585,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P117i_includes -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P117i_includes">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="de">beinhaltet</rdfs:label>
         <rdfs:label xml:lang="fr">comporte</rdfs:label>
         <rdfs:label xml:lang="en">includes</rdfs:label>
@@ -586,8 +597,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P118_overlaps_in_time_with -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P118_overlaps_in_time_with">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property identifies an overlap between the instances of E52
             Time-Span of two instances of E2 Temporal Entity. It implies a temporal order between
             the two entities: if A overlaps in time B, then A must start before B, and B must end
@@ -606,8 +617,8 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P118i_is_overlapped_in_time_by -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P118i_is_overlapped_in_time_by">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="en">is overlapped in time by</rdfs:label>
         <rdfs:label xml:lang="fr">recouvre partiellement dans le temps</rdfs:label>
         <rdfs:label xml:lang="de">wird zeitlich überlappt von</rdfs:label>
@@ -618,8 +629,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P119_meets_in_time_with -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P119_meets_in_time_with">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property indicates that one E2 Temporal Entity immediately
             follows another. It implies a particular order between the two entities: if A meets in
             time with B, then A must precede B. This property is only necessary if the relevant time
@@ -636,8 +647,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P119i_is_met_in_time_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P119i_is_met_in_time_by">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="fr">est immédiatement précédé par</rdfs:label>
         <rdfs:label xml:lang="en">is met in time by</rdfs:label>
         <rdfs:label xml:lang="de">wird zeitlich getroffen von</rdfs:label>
@@ -680,8 +691,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P120_occurs_before -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P120_occurs_before">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This property identifies the relative chronological sequence of
             two temporal entities. It implies that a temporal gap exists between the end of A and
             the start of B. This property is only necessary if the relevant time spans are unknown
@@ -698,8 +709,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P120i_occurs_after -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P120i_occurs_after">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="fr">a lieu après</rdfs:label>
         <rdfs:label xml:lang="de">kommt nach</rdfs:label>
         <rdfs:label xml:lang="en">occurs after</rdfs:label>
@@ -710,8 +721,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P121_overlaps_with -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P121_overlaps_with">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This symmetric property allows the instances of E53 Place with
             overlapping geometric extents to be associated with each other. It does not specify
             anything about the shared area. This property is purely spatial, in contrast to Allen
@@ -726,8 +737,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P122_borders_with -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P122_borders_with">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This symmetric property allows the instances of E53 Place which
             share common borders to be related as such. This property is purely spatial, in contrast
             to Allen operators, which are purely temporal. </rdfs:comment>
@@ -1387,7 +1398,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P144_joined_with">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11_had_participant"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E85_Joining"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This property identifies the instance of E74 Group of which an
             instance of E39 Actor becomes a member through an instance of E85 Joining. Although a
             Joining activity normally concerns only one instance of E74 Group, it is possible to
@@ -1405,7 +1416,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P144i_gained_member_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P144i_gained_member_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E85_Joining"/>
         <rdfs:label xml:lang="de">erwarb Mitglied durch</rdfs:label>
         <rdfs:label xml:lang="en">gained member by</rdfs:label>
@@ -1435,7 +1446,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P146_separated_from">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11_had_participant"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E86_Leaving"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This property identifies the instance of E74 Group an instance
             of E39 Actor leaves through an instance of E86 Leaving. Although a Leaving activity
             normally concerns only one instance of E74 Group, it is possible to imagine
@@ -1448,7 +1459,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P146i_lost_member_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P146i_lost_member_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E86_Leaving"/>
         <rdfs:label xml:lang="en">lost member by</rdfs:label>
         <rdfs:label xml:lang="de">verlor Mitglied durch</rdfs:label>
@@ -1560,7 +1571,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P151_was_formed_from">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11_had_participant"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E66_Formation"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This property associates an instance of E66 Formation with an
             instance of E74 Group from which the new group was formed preserving a sense of
             continuity such as in mission, membership or tradition. </rdfs:comment>
@@ -1569,14 +1580,14 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P151i_participated_in -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P151i_participated_in">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E66_Formation"/>
         <rdfs:label xml:lang="en">participated in</rdfs:label>
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P152_has_parent -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P152_has_parent">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:comment xml:lang="en">This property associates an instance of E21 Person with another
             instance of E21 Person who plays the role of the first instance’s parent, regardless of
             whether the relationship is biological parenthood, assumed or pretended biological
@@ -1589,8 +1600,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P152i_is_parent_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P152i_is_parent_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:label xml:lang="en">is parent of</rdfs:label>
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P156_occupies -->
@@ -1598,7 +1609,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P161_has_spatial_projection"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property describes the largest volume in space that an
             instance of E18 Physical Thing has occupied at any time during its existence, with
             respect to the reference space relative to itself. This allows you to describe the thing
@@ -1628,7 +1639,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P156i_is_occupied_by">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P161i_is_spatial_projection_of"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
         <rdfs:label xml:lang="en">is occupied by</rdfs:label>
     </owl:ObjectProperty>
@@ -1636,7 +1647,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P157_is_at_rest_relative_to">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P59i_is_located_on_or_within"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
         <rdfs:comment xml:lang="en">This property associates an instance of P53 Place with the
             instance of E18 Physical Thing that determines a reference space for this instance of
@@ -1653,7 +1664,7 @@
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P157i_provides_reference_space_for">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P59_has_section"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:label xml:lang="en">provides reference space for</rdfs:label>
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P15_was_influenced_by -->
@@ -1686,7 +1697,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P160_has_temporal_projection -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P160_has_temporal_projection">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E92_Spacetime_Volume"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:comment xml:lang="en">This property describes the temporal projection of an instance
             of an E92 Spacetime Volume. The property P4 has time-span is the same as P160 has
             temporal projection if it is used to document an instance of E4 Period or any subclass
@@ -1696,14 +1707,14 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P160i_is_temporal_projection_of -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P160i_is_temporal_projection_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E92_Spacetime_Volume"/>
         <rdfs:label xml:lang="en">is temporal projection of</rdfs:label>
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P161_has_spatial_projection -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P161_has_spatial_projection">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E92_Spacetime_Volume"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property associates an instance of a E92 Spacetime Volume
             with an instance of E53 Place that is the result of the spatial projection of the
             instance of a E92 Spacetime Volume on a reference space. In general there can be more
@@ -1717,14 +1728,14 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P161i_is_spatial_projection_of -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P161i_is_spatial_projection_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E92_Spacetime_Volume"/>
         <rdfs:label xml:lang="en">is spatial projection of</rdfs:label>
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P164_during -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P164_during">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E93_Presence"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:comment xml:lang="en">This property relates an E93 Presence with an arbitrary E52
             Time-Span that defines the section of the spacetime volume that this instance of E93
             Presence is related to by P166 was a presence of (had presence) that is concerned by
@@ -1733,7 +1744,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P164i_was_time-span_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P164i_was_time-span_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E93_Presence"/>
         <rdfs:label xml:lang="en">was time-span of</rdfs:label>
     </owl:ObjectProperty>
@@ -2112,7 +2123,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P26_moved_to -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P26_moved_to">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property identifies a destination of a E9 Move. A move will
             be linked to a destination, such as the move of an artefact from storage to display. A
             move may be linked to many terminal instances of E53 Place by multiple instances of this
@@ -2131,7 +2142,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P26i_was_destination_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P26i_was_destination_of">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
         <rdfs:label xml:lang="fr">a été la destination de</rdfs:label>
         <rdfs:label xml:lang="pt">era destinação de</rdfs:label>
@@ -2144,7 +2155,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P27_moved_from -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P27_moved_from">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property identifies a starting E53 Place of an E9 Move. A
             move will be linked to an origin, such as the move of an artefact from storage to
             display. A move may be linked to many starting instances of E53 Place by multiple
@@ -2163,7 +2174,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P27i_was_origin_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P27i_was_origin_of">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E9_Move"/>
         <rdfs:label xml:lang="fr">a été l&apos;origine de</rdfs:label>
         <rdfs:label xml:lang="pt">era origem de</rdfs:label>
@@ -2856,8 +2867,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P4_has_time-span">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:comment xml:lang="en">This property describes the temporal confinement of an instance
             of an E2 Temporal Entity. The related E52 Time-Span is understood as the real Time-Span
             during which the phenomena were active, which make up the temporal entity instance. It
@@ -2877,8 +2888,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P4i_is_time-span_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:label xml:lang="fr">est la durée de</rdfs:label>
         <rdfs:label xml:lang="en">is time-span of</rdfs:label>
         <rdfs:label xml:lang="de">ist Zeitspanne von</rdfs:label>
@@ -2997,7 +3008,7 @@
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property allows an instance of E53 Place to be associated
             as the former or current location of an instance of E18 Physical Thing. In the case of
             E19 Physical Objects, the property does not allow any indication of the Time-Span during
@@ -3018,7 +3029,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P53i_is_former_or_current_location_of -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P53i_is_former_or_current_location_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
         <rdfs:label xml:lang="fr">est ou a été localisation de</rdfs:label>
         <rdfs:label xml:lang="en">is former or current location of</rdfs:label>
@@ -3032,7 +3043,7 @@
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P54_has_current_permanent_location">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E19_Physical_Object"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property records the foreseen permanent location of an
             instance of E19 Physical Object at the time of validity of the record or database
             containing the statement that uses this property. P54 has current permanent location (is
@@ -3053,7 +3064,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P54i_is_current_permanent_location_of -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P54i_is_current_permanent_location_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E19_Physical_Object"/>
         <rdfs:label xml:lang="fr">est actuellement localisation à demeure de</rdfs:label>
         <rdfs:label xml:lang="en">is current permanent location of</rdfs:label>
@@ -3068,7 +3079,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P53_has_former_or_current_location"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E19_Physical_Object"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property records the location of an E19 Physical Object at
             the time of validity of the record or database containing the statement that uses this
             property. This property is a specialisation of P53 has former or current location (is
@@ -3091,7 +3102,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P55i_currently_holds">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P53i_is_former_or_current_location_of"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E19_Physical_Object"/>
         <rdfs:label xml:lang="en">currently holds</rdfs:label>
         <rdfs:label xml:lang="fr">est localisation actuelle de</rdfs:label>
@@ -3175,7 +3186,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P59_has_section -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P59_has_section">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property links an area to the instance of E18 Physical
             Thing upon which it is found. It is typically used when a named E46 Section Definition
             is not appropriate. E18 Physical Thing may be subdivided into arbitrary regions. P59 has
@@ -3194,7 +3205,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P59i_is_located_on_or_within -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P59i_is_located_on_or_within">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E18_Physical_Thing"/>
         <rdfs:label xml:lang="de">befindet sich auf oder in</rdfs:label>
         <rdfs:label xml:lang="pt">está localizada sobre ou dentro de</rdfs:label>
@@ -3512,7 +3523,7 @@
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P74_has_current_or_former_residence">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property describes the current or former E53 Place of
             residence of an E39 Actor. The residence may be either the Place where the Actor
             resides, or a legally registered address of any kind. </rdfs:comment>
@@ -3527,7 +3538,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P74i_is_current_or_former_residence_of -->
     <owl:ObjectProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P74i_is_current_or_former_residence_of">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
         <rdfs:label xml:lang="fr">est ou a été la résidence de</rdfs:label>
         <rdfs:label xml:lang="en">is current or former residence of</rdfs:label>
@@ -3592,7 +3603,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P78_is_identified_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P78_is_identified_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E49_Time_Appellation"/>
         <rdfs:comment xml:lang="en">This property identifies an E52 Time-Span using an E49Time
             Appellation.</rdfs:comment>
@@ -3608,7 +3619,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P78i_identifies">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P1i_identifies"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E49_Time_Appellation"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:label xml:lang="de">bezeichnet</rdfs:label>
         <rdfs:label xml:lang="pt">identifica</rdfs:label>
         <rdfs:label xml:lang="fr">identifie</rdfs:label>
@@ -3620,7 +3631,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P7_took_place_at">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E4_Period"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property describes the spatial location of an instance of
             E4 Period. The related E53 Place should be seen as an approximation of the geographical
             area within which the phenomena that characterise the period in question occurred.
@@ -3641,7 +3652,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P7i_witnessed">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E4_Period"/>
         <rdfs:label xml:lang="fr">a été témoin de</rdfs:label>
         <rdfs:label xml:lang="de">bezeugte</rdfs:label>
@@ -3653,7 +3664,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P83_had_at_least_duration -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P83_had_at_least_duration">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E54_Dimension"/>
         <rdfs:comment xml:lang="en">This property describes the minimum length of time covered by an
             E52 Time-Span. It allows an E52 Time-Span to be associated with an E54 Dimension
@@ -3670,7 +3681,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P83i_was_minimum_duration_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P83i_was_minimum_duration_of">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E54_Dimension"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:label xml:lang="fr">a été la durée minimum de</rdfs:label>
         <rdfs:label xml:lang="pt">foi a duração mínima de</rdfs:label>
         <rdfs:label xml:lang="de">war Mindestdauer von</rdfs:label>
@@ -3680,7 +3691,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P84_had_at_most_duration -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P84_had_at_most_duration">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E54_Dimension"/>
         <rdfs:comment xml:lang="en">This property describes the maximum length of time covered by an
             E52 Time-Span. It allows an E52 Time-Span to be associated with an E54 Dimension
@@ -3697,7 +3708,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P84i_was_maximum_duration_of -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P84i_was_maximum_duration_of">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E54_Dimension"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:label xml:lang="zh"/>
         <rdfs:label xml:lang="fr">a été la durée maximum de</rdfs:label>
         <rdfs:label xml:lang="pt">foi a duração máxima de</rdfs:label>
@@ -3708,8 +3719,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P86_falls_within -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P86_falls_within">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:comment xml:lang="en">This property describes the inclusion relationship between two
             instances of E52 Time-Span. This property supports the notion that a Time-Span’s
             temporal extent falls within the temporal extent of another Time-Span. It addresses
@@ -3725,8 +3736,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P86i_contains -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P86i_contains">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:label xml:lang="en">contains</rdfs:label>
         <rdfs:label xml:lang="pt">contém</rdfs:label>
         <rdfs:label xml:lang="de">enthält</rdfs:label>
@@ -3738,7 +3749,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P87_is_identified_by -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P87_is_identified_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P1_is_identified_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E44_Place_Appellation"/>
         <rdfs:comment xml:lang="en">This property identifies an E53 Place using an E44 Place
             Appellation. Examples of Place Appellations used to identify Places include instances of
@@ -3755,7 +3766,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P87i_identifies">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P1i_identifies"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E44_Place_Appellation"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:label xml:lang="de">bezeichnet</rdfs:label>
         <rdfs:label xml:lang="pt">identifica</rdfs:label>
         <rdfs:label xml:lang="fr">identifie</rdfs:label>
@@ -3766,8 +3777,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P89_falls_within -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P89_falls_within">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:comment xml:lang="en">This property identifies an instance of E53 Place that falls
             wholly within the extent of another E53 Place. It addresses spatial containment only,
             and does not imply any relationship between things or phenomena occupying these places. </rdfs:comment>
@@ -3781,8 +3792,8 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P89i_contains -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P89i_contains">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E53_Place"/>
+        <rdfs:domain rdf:resource="http://purl.org/dc/terms/Location"/>
+        <rdfs:range rdf:resource="http://purl.org/dc/terms/Location"/>
         <rdfs:label xml:lang="en">contains</rdfs:label>
         <rdfs:label xml:lang="pt">contém</rdfs:label>
         <rdfs:label xml:lang="de">enthält</rdfs:label>
@@ -3957,7 +3968,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P92_brought_into_existence"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E66_Formation"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This property links the founding or E66 Formation for an E74
             Group with the Group itself.</rdfs:comment>
         <rdfs:label xml:lang="fr">a fondé</rdfs:label>
@@ -3972,7 +3983,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P95i_was_formed_by">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P92i_was_brought_into_existence_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E66_Formation"/>
         <rdfs:label xml:lang="fr">a été fondé par</rdfs:label>
         <rdfs:label xml:lang="pt">foi formado por</rdfs:label>
@@ -3986,7 +3997,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P96_by_mother">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11_had_participant"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:comment xml:lang="en">This property links an E67 Birth event to an E21 Person as a
             participant in the role of birth-giving mother. Note that biological fathers are not
             necessarily participants in the Birth (see P97 from father (was father for)). The Person
@@ -4005,7 +4016,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P96i_gave_birth -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P96i_gave_birth">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
         <rdfs:label xml:lang="fr">a donné naissance à</rdfs:label>
         <rdfs:label xml:lang="pt">deu nascimento</rdfs:label>
@@ -4018,7 +4029,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P97_from_father -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P97_from_father">
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:comment xml:lang="en">This property links an E67 Birth event to an E21 Person in the
             role of biological father. Note that biological fathers are not seen as necessary
             participants in the Birth, whereas birth-giving mothers are (see P96 by mother (gave
@@ -4037,7 +4048,7 @@
     </owl:ObjectProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P97i_was_father_for -->
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P97i_was_father_for">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
         <rdfs:label xml:lang="fr">a été père dans</rdfs:label>
         <rdfs:label xml:lang="pt">foi pai para</rdfs:label>
@@ -4052,7 +4063,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P92_brought_into_existence"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:comment xml:lang="en">This property links an E67Birth event to an E21 Person in the
             role of offspring. Twins, triplets etc. are brought into life by the same Birth event.
             This is not intended for use with general Natural History material, only people. There
@@ -4069,7 +4080,7 @@
     <owl:ObjectProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P98i_was_born">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P92i_was_brought_into_existence_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E21_Person"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/person#Person"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E67_Birth"/>
         <rdfs:label xml:lang="fr">est né</rdfs:label>
         <rdfs:label xml:lang="pt">veio à vida pelo</rdfs:label>
@@ -4085,7 +4096,7 @@
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P93_took_out_of_existence"/>
         <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E68_Dissolution"/>
-        <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:range rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This property links the disbanding or E68 Dissolution of an E74
             Group to the Group itself.</rdfs:comment>
         <rdfs:label xml:lang="fr">a dissous</rdfs:label>
@@ -4101,7 +4112,7 @@
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P11i_participated_in"/>
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P93i_was_taken_out_of_existence_by"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+        <rdfs:domain rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:range rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E68_Dissolution"/>
         <rdfs:label xml:lang="fr">a été dissous par</rdfs:label>
         <rdfs:label xml:lang="pt">foi dissolvido por</rdfs:label>
@@ -4196,7 +4207,7 @@
     <owl:DatatypeProperty
         rdf:about="http://www.cidoc-crm.org/cidoc-crm/P79_beginning_is_qualified_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P3_has_note"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
         <rdfs:comment xml:lang="en">This property qualifies the beginning of an E52 Time-Span in
             some way. The nature of the qualification may be certainty, precision, source etc. </rdfs:comment>
@@ -4211,7 +4222,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by -->
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P80_end_is_qualified_by">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P3_has_note"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
         <rdfs:comment xml:lang="en">This property qualifies the end of an E52 Time-Span in some way.
             The nature of the qualification may be certainty, precision, source etc. </rdfs:comment>
@@ -4225,7 +4236,7 @@
     </owl:DatatypeProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P81_ongoing_throughout -->
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P81_ongoing_throughout">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
         <rdfs:comment xml:lang="en">This property describes the minimum period of time covered by an
             E52 Time-Span. Since Time-Spans may not have precisely known temporal extents, the CRM
@@ -4244,7 +4255,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P81a_end_of_the_begin -->
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P81a_end_of_the_begin">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P81_ongoing_throughout"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">This is defined as the first boundary of the property
             P81</rdfs:comment>
@@ -4258,7 +4269,7 @@
     <!-- http://www.cidoc-crm.org/cidoc-crm/P81b_begin_of_the_end -->
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P81b_begin_of_the_end">
         <rdfs:subPropertyOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P81_ongoing_throughout"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">This is defined as the second boundary of the property
             P81</rdfs:comment>
@@ -4271,7 +4282,7 @@
     </owl:DatatypeProperty>
     <!-- http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within -->
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within">
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
         <rdfs:comment xml:lang="en">This property describes the maximum period of time within which
             an E52 Time-Span falls. Since Time-Spans may not have precisely known temporal extents,
@@ -4291,7 +4302,7 @@
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P82a_begin_of_the_begin">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">This is defined as the first boundary of the property
             P82</rdfs:comment>
@@ -4306,7 +4317,7 @@
     <owl:DatatypeProperty rdf:about="http://www.cidoc-crm.org/cidoc-crm/P82b_end_of_the_end">
         <rdfs:subPropertyOf
             rdf:resource="http://www.cidoc-crm.org/cidoc-crm/P82_at_some_time_within"/>
-        <rdfs:domain rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/2006/time#DateTimeInterval"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
         <rdfs:comment xml:lang="en">This is defined as the second boundary of the property
             P82</rdfs:comment>
@@ -4613,8 +4624,8 @@
         <rdfs:label xml:lang="ru">Биологический Объект</rdfs:label>
         <rdfs:label xml:lang="zh">生物体</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E21_Person -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E21_Person">
+    <!-- http://www.w3.org/ns/person#Person -->
+    <owl:Class rdf:about="http://www.w3.org/ns/person#Person">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E20_Biological_Object"/>
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
         <rdfs:comment xml:lang="en">This class comprises real persons who live or are assumed to
@@ -4774,8 +4785,8 @@
         <rdfs:label xml:lang="ru">Проект или Процедура</rdfs:label>
         <rdfs:label xml:lang="zh">设计或程序</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity">
+    <!-- http://www.w3.org/2006/time#TemporalEntity -->
+    <owl:Class rdf:about="http://www.w3.org/2006/time#TemporalEntity">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"/>
         <rdfs:comment xml:lang="en">This class comprises all phenomena, such as the instances of E4
             Periods, E5 Events and states, which happen over a limited extent in time. In some
@@ -4975,7 +4986,7 @@
     </owl:Class>
     <!-- http://www.cidoc-crm.org/cidoc-crm/E3_Condition_State -->
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E3_Condition_State">
-        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:comment xml:lang="en">This class comprises the states of objects characterised by a
             certain condition over a time-span. An instance of this class describes the prevailing
             physical condition of any material object or feature during a specific E52 Time Span. In
@@ -4992,9 +5003,9 @@
         <rdfs:label xml:lang="ru">Состояние</rdfs:label>
         <rdfs:label xml:lang="zh">状态</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E40_Legal_Body -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E40_Legal_Body">
-        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E74_Group"/>
+    <!-- http://xmlns.com/foaf/0.1/Organization -->
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Organization">
+        <rdfs:subClassOf rdf:resource="http://xmlns.com/foaf/0.1/Group"/>
         <rdfs:comment xml:lang="en">This class comprises institutions or groups of people that have
             obtained a legal recognition as a group and can act collectively as agents. This means
             that they can perform actions, own property, create or destroy things and can be held
@@ -5068,8 +5079,8 @@
         <rdfs:label xml:lang="ru">Обозначение Места</rdfs:label>
         <rdfs:label xml:lang="zh">地点称号</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E45_Address -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E45_Address">
+    <!-- http://www.w3.org/ns/locn#Address -->
+    <owl:Class rdf:about="http://www.w3.org/ns/locn#Address">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E44_Place_Appellation"/>
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E51_Contact_Point"/>
         <rdfs:comment xml:lang="en">This class comprises identifiers expressed in coding systems for
@@ -5160,7 +5171,7 @@
     </owl:Class>
     <!-- http://www.cidoc-crm.org/cidoc-crm/E4_Period -->
     <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E4_Period">
-        <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E2_Temporal_Entity"/>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2006/time#TemporalEntity"/>
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E92_Spacetime_Volume"/>
         <rdfs:comment xml:lang="en">This class comprises sets of coherent phenomena or cultural
             manifestations occurring in time and space. It is the social or physical coherence of
@@ -5261,8 +5272,8 @@
         <rdfs:label xml:lang="ru">Контакт</rdfs:label>
         <rdfs:label xml:lang="zh">联系方式</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E52_Time-Span">
+    <!-- http://www.w3.org/2006/time#DateTimeInterval -->
+    <owl:Class rdf:about="http://www.w3.org/2006/time#DateTimeInterval">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"/>
         <rdfs:comment xml:lang="en">This class comprises abstract temporal extents, in the sense of
             Galilean physics, having a beginning, an end and a duration. Time Span has no other
@@ -5285,8 +5296,8 @@
         <rdfs:label xml:lang="ru">Интервал Времени</rdfs:label>
         <rdfs:label xml:lang="zh">时段</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E53_Place -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E53_Place">
+    <!-- http://purl.org/dc/terms/Location -->
+    <owl:Class rdf:about="http://purl.org/dc/terms/Location">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E1_CRM_Entity"/>
         <rdfs:comment xml:lang="en">This class comprises extents in space, in particular on the
             surface of the earth, in the pure sense of physics: independent from temporal phenomena
@@ -5650,8 +5661,8 @@
         <rdfs:label xml:lang="ru">Информационный Объект</rdfs:label>
         <rdfs:label xml:lang="zh">信息物件</rdfs:label>
     </owl:Class>
-    <!-- http://www.cidoc-crm.org/cidoc-crm/E74_Group -->
-    <owl:Class rdf:about="http://www.cidoc-crm.org/cidoc-crm/E74_Group">
+    <!-- http://xmlns.com/foaf/0.1/Group -->
+    <owl:Class rdf:about="http://xmlns.com/foaf/0.1/Group">
         <rdfs:subClassOf rdf:resource="http://www.cidoc-crm.org/cidoc-crm/E39_Actor"/>
         <rdfs:comment xml:lang="en">This class comprises any gatherings or organizations of E39
             Actors that act collectively or in a similar way due to any form of unifying

@@ -121,19 +121,19 @@ public class AGOnto {
 		StmtIterator iter = iOntologyModel.listStatements((Resource) null, (Property) null, (RDFNode) null);
 		while (iter.hasNext()) {
 			Statement s = iter.nextStatement();
-			// logger.debug("eStatement: " + s);
+			logger.debug("eStatement: " + s);
 			if (s.getSubject().isURIResource() && s.getSubject().getNameSpace().startsWith(iNS)) {
-				// logger.debug(">>eSub: " + s.getSubject().getNameSpace());
+				logger.debug(">>eSub: " + s.getSubject().getNameSpace());
 				n++;
 			}
 			if (s.getPredicate().isURIResource() && s.getPredicate().getNameSpace().startsWith(iNS)) {
-				// logger.debug(">>ePre: " + s.getPredicate().getNameSpace());
+				logger.debug(">>ePre: " + s.getPredicate().getNameSpace());
 				n++;
 			}
 			if (s.getObject() instanceof Resource) {
 				if (s.getObject().isURIResource()) {
 					if (s.getObject().asResource().getNameSpace().startsWith(iNS)) {
-						// logger.debug(">>eObj: " + s.getObject().asResource().getNameSpace());
+						logger.debug(">>eObj: " + s.getObject().asResource().getNameSpace());
 						n++;
 					}
 				}
